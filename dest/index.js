@@ -3,14 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ws_1 = require("ws");
 const UserManager_1 = require("./UserManager");
 const incomingMessages_1 = require("./messages/incomingMessages");
-
 const wss = new ws_1.WebSocketServer({ port: 8081 });
 const userManager = new UserManager_1.UserManager();
-
-wss.on('listening', () => {
-    console.log('Namaste🙏🏻! Server is Listening On Port 8081');
+wss.on('listening', (ws) => {
+    ws.send('Namaste🙏🏻! Server is Listening On Port 8081');
 });
-
 wss.on('connection', function connection(ws) {
     console.log("New Client Connected! ", ws.toString());
     ws.send('Namaste From Server🙏🏻');
@@ -24,8 +21,8 @@ wss.on('connection', function connection(ws) {
         // Perform cleanup or notify other clients if necessary
     });
 });
-
 function messageHandler(ws, message) {
+    // console.log(message.type,message.payload);
     if (message.type == incomingMessages_1.SupportedMessage.AddRoom) {
         const userDetails = message.payload;
         userManager.addRoom(userDetails, ws);

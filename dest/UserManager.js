@@ -31,7 +31,7 @@ class UserManager {
         this.rooms.set(roomId, {
             admin: { id: userId, name: name },
             users: [],
-            battle_info: { duration: 60, words: "", started: false, gameConfig: [{ section: "section2", text: "time" }, { section: 'section3', text: '60' }] }
+            battle_info: { duration: 30000, words: "", started: false, gameConfig: [{ section: "section2", text: "time" }, { section: 'section3', text: '60' }] }
         });
         this.addUser(userDetails, roomId, socket);
     }
